@@ -1,44 +1,39 @@
-// productRoutes.js
 import express from "express";
-import Product from "../models/productModel.js";
 import multer from "multer";
 import path from "path";
+import Product from "../models/productModel.js";
 
 const router = express.Router();
 
-// Multer setup for image upload
+// Multer setup
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "uploads/"),
-    filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 const upload = multer({ storage });
 
-// @route POST /api/products
-// @desc Add new product (admin)
+// POST - Add product
 router.post("/", upload.single("image"), async (req, res) => {
-    try {
-        const { name, description, price, phone, bankAccount } = req.body;
-        const image = req.file ? req.file.path : null;
+  try {
+    const { name, description, price } = req.body;
+    const image = req.file ? req.file.path : "";
 
-        if (!image) return res.status(400).json({ message: "Image is required" });
-
-        const product = new Product({ name, description, price, phone, bankAccount, image });
-        const savedProduct = await product.save();
-        res.status(201).json(savedProduct);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    const newProduct = new Product({ name, description, price, image });
+    await newProduct.save();
+    res.status(201).json({ message: "Product added successfully", product: newProduct });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
-// @route GET /api/products
-// @desc Get all products (users)
+// GET - All products
 router.get("/", async (req, res) => {
-    try {
-        const products = await Product.find().sort({ createdAt: -1 });
-        res.json(products);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

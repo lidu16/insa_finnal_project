@@ -15,8 +15,15 @@ dotenv.config();
 // Create Express app
 const app = express();
 
+// --- CORS Setup ---
+// Allow frontend at localhost:5173 (Vite default) to access backend
+app.use(cors({
+  origin: "http://localhost:5173", // change if your frontend runs on another port
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,7 +32,7 @@ app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 
 // Routes
 app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes); // <-- Now comes AFTER app is initialized
+app.use("/api/orders", orderRoutes);
 
 // Test route
 app.get("/", (req, res) => res.send("Backend running"));
