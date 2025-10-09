@@ -8,6 +8,7 @@ import path from "path";
 // Import routes
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +34,7 @@ app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 // Routes
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Test route
 app.get("/", (req, res) => res.send("Backend running"));
@@ -45,7 +47,7 @@ const uri = process.env.MONGO_URI;
 
 if (!uri) {
   console.error("❌ MongoDB URI is missing! Check your .env file.");
-  process.exit(1); // Stop server
+  process.exit(1); // Stop server                                                                              
 }
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -1,3 +1,85 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* index.css - AAU E-Commerce Styles */
+/* Professional Golden, Black & Cream Color Scheme */
+
+/* CSS Variables for Color Palette */
+:root {
+  --primary-gold: #D4AF37;
+  --secondary-gold: #B8860B;
+  --dark-gold: #996F1A;
+  --light-gold: #F7E98E;
+  --cream: #F5F5DC;
+  --light-cream: #FFFEF7;
+  --dark-cream: #E8E8D0;
+  --charcoal: #2C2C2C;
+  --dark-charcoal: #1A1A1A;
+  --light-charcoal: #404040;
+  --white: #FFFFFF;
+  --success: #10B981;
+  --error: #B8860B;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--light-cream) 0%, var(--cream) 100%);
+  color: var(--charcoal);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dark-charcoal);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+/* Layout Components */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}

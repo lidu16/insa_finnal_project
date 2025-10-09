@@ -42,4 +42,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /api/orders/:id - get single order by id
+router.get("/:id", async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT /api/orders/:id/verify - mark order payment as verified (admin accept)
+router.put("/:id/verify", async (req, res) => {
+  try {
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { $set: { paymentStatus: "verified" } },
+      { new: true }
+    );
+    if (!order) return res.status(404).json({ message: "Order not found" });
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 export default router;

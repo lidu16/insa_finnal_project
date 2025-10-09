@@ -7,8 +7,22 @@ const UserPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   return (
-    <div className="bg-gray-50 min-h-screen p-4">
-      <h1 className="text-3xl font-bold text-center mb-8">AAU E-Commerce</h1>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #FFFBEA 0%, #D4AF37 100%)',
+      padding: '2rem 0'
+    }}>
+      <h1 style={{
+        fontSize: '2.5rem',
+        fontWeight: '900',
+        textAlign: 'center',
+        marginBottom: '2rem',
+        color: '#1A1A1A',
+        letterSpacing: '2px',
+        textShadow: '0 2px 8px #D4AF37'
+      }}>
+        <span style={{ color: '#D4AF37' }}>AAU</span> <span style={{ color: '#1A1A1A' }}>E-Commerce</span>
+      </h1>
       <ProductList onBuy={(product) => setSelectedProduct(product)} />
       {selectedProduct && (
         <OrderForm product={selectedProduct} onSuccess={() => setSelectedProduct(null)} />

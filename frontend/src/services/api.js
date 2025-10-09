@@ -15,5 +15,11 @@ export const getOrders = () => axios.get(`${API_URL}/orders`);
 export const addOrder = (formData) => axios.post(`${API_URL}/orders`, formData, {
   headers: { "Content-Type": "multipart/form-data" }
 });
+export const getOrderById = (orderId) => axios.get(`${API_URL}/orders/${orderId}`);
+export const verifyOrder = (orderId) => axios.put(`${API_URL}/orders/${orderId}/verify`);
 
-export default { getProducts, addProduct, getOrders, addOrder };
+// Admin
+export const adminLogin = (credentials) => axios.post(`${API_URL}/admin/login`, credentials);
+export const createDefaultAdmin = () => axios.post(`${API_URL}/admin/setup`);
+
+export default { getProducts, addProduct, getOrders, addOrder, getOrderById, verifyOrder, adminLogin, createDefaultAdmin };

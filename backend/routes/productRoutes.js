@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import Product from "../models/productModel.js";
+import { addProduct, getProducts } from "../controllers/productController.js";
 
 const router = express.Router();
 
@@ -12,28 +12,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// POST - Add product
-router.post("/", upload.single("image"), async (req, res) => {
-  try {
-    const { name, description, price } = req.body;
-    const image = req.file ? req.file.path : "";
-
-    const newProduct = new Product({ name, description, price, image });
-    await newProduct.save();
-    res.status(201).json({ message: "Product added successfully", product: newProduct });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// POST - Add product (with all fields)
+router.post("/", upload.single("image"), addProduct);
 
 // GET - All products
-router.get("/", async (req, res) => {
-  try {
-    const products = await Product.find().sort({ createdAt: -1 });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.get("/", getProducts);
 
 export default router;
