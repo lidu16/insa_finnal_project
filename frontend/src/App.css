@@ -43,3 +43,54 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Admin / Products masonry gallery (Shein-like) */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 1rem;
+  padding: 0 0.5rem;
+}
+.masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 1rem;
+  break-inside: avoid;
+}
+.masonry-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .masonry-grid { column-count: 2; }
+}
+@media (min-width: 1024px) {
+  .masonry-grid { column-count: 3; }
+}
+
+/* Small utility: clamp lines (fallback where -webkit-line-clamp exists) */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Delete button styling for better touch targets */
+.delete-btn {
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.sr-only { 
+  position: absolute !important; 
+  height: 1px; width: 1px; 
+  overflow: hidden; 
+  clip: rect(1px, 1px, 1px, 1px); 
+  white-space: nowrap; 
+}

@@ -173,30 +173,35 @@ function ProductsManagement() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Masonry-like responsive gallery (Shein-style) */}
+      <div className="masonry-grid">
         {products.map((product) => (
-          <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+          <article key={product._id} className="masonry-item bg-white rounded-lg shadow-md overflow-hidden">
             {product.image && (
-              <img
-                src={`http://localhost:5000/${product.image}`}
-                alt={product.name}
-                className="w-full h-48 object-cover"
-              />
+              <div className="masonry-thumb">
+                <img
+                  src={`http://localhost:5000/${product.image}`}
+                  alt={product.name}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
             )}
             <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.name}</h3>
-              <p className="text-gray-600 text-sm mb-2">{product.description}</p>
-              <p className="text-green-600 font-bold text-lg mb-3">{product.price} ETB</p>
-              <div className="flex space-x-2">
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">{product.name}</h3>
+              <p className="text-gray-600 text-sm mb-2 line-clamp-3">{product.description}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-green-600 font-bold text-lg">{product.price} ETB</p>
                 <button
                   onClick={() => deleteProduct(product._id)}
-                  className="flex-1 bg-red-600 text-white py-2 px-3 rounded hover:bg-red-700 transition-colors duration-200"
+                  aria-label={`Delete ${product.name}`}
+                  className="delete-btn ml-4 flex-none inline-flex items-center justify-center px-3 py-2 rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-150"
                 >
-                  Delete
+                  <span className="sr-only">Delete</span>
+                  🗑️
                 </button>
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
